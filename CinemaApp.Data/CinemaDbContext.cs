@@ -1,0 +1,41 @@
+namespace CinemaApp.Data
+{
+    using System.Reflection;
+
+    using Models;
+
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
+
+    public class CinemaDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
+    {
+        
+        public CinemaDbContext()
+        {
+            
+        }
+
+        public CinemaDbContext(DbContextOptions<CinemaDbContext> options)
+            : base(options)
+        {
+        }
+
+       
+        public DbSet<ApplicationUserMovie> ApplicationUserMovies { get; set; } = null!;
+
+        public DbSet<Cinema> Cinemas { get; set; } = null!;
+
+        public DbSet<CinemaMovie> CinemaMovies { get; set; } = null!;
+
+        public DbSet<Movie> Movies { get; set; } = null!;
+
+        public DbSet<Ticket> Tickets { get; set; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+    }
+}
