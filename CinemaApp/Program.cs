@@ -16,7 +16,6 @@ namespace CinemaApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("CinemaDbConnection") ??
                                    throw new InvalidOperationException(
                                        "Connection string 'DefaultConnection' not found.");
@@ -27,7 +26,7 @@ namespace CinemaApp
             builder.Services.AddSingleton<IXmlHelper, XmlHelper>();
             builder.Services.AddScoped<IDbSeeder, ApplicationDbContextSeeder>();
 
-            // TODO: Introduce extension method for run-time detection and registration of seeders
+           
             builder.Services.AddScoped<CinemaMovieSeeder>();
             builder.Services.AddScoped<IdentitySeeder>();
             builder.Services.AddScoped<MoviesSeeder>();
@@ -62,7 +61,6 @@ namespace CinemaApp
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
